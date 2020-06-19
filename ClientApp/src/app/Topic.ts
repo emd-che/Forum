@@ -1,6 +1,7 @@
 export class Topic {
     id: number;
-    topicTitle: string;
+    title: string;
+    body: string;
     repliesCount: number;
     viewsCount: number;
     activity: number;
