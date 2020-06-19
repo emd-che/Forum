@@ -1,0 +1,11 @@
+<div class="list-header">
+    <!-- todo: replace later -->
+    <span class="list-header-element topic">Topic</span>
+    <span class="list-header-element">Replies</span>
+    <span class="list-header-element">Views</span>
+    <span class="list-header-element">Activity</span>
+</div>
+
+<div *ngFor="let topic of topics" class="forum-list">
+    <app-forum-topic [topic]="topic"></app-forum-topic>
+</div>
