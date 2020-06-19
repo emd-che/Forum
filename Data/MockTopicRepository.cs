@@ -3,7 +3,7 @@ using Forum.Model;
 
 namespace Forum.Data 
 {
-    public class MockTopicRepo : ITopicRepo
+    public class MockTopicRepository : ITopicRepository
     {
 
         // public IEnumerable<Topic> GetAllTopics()

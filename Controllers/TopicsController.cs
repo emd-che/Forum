@@ -9,9 +9,9 @@ namespace Forum.Controllers
     [ApiController]
     public class TopicsController: ControllerBase
     {
-        public readonly ITopicRepo _repository;
+        public readonly ITopicRepository _repository;
 
-        public TopicsController(ITopicRepo repository)
+        public TopicsController(ITopicRepository repository)
         {
             _repository = repository;
         }
