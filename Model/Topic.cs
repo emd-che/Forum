@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Forum.Model
 {
     public class Topic
@@ -8,5 +10,6 @@ namespace Forum.Model
         public int RepliesCount {get; set;}
         public int ViewsCount {get; set;}
         public int Activity {get; set;}
+        public List<Comment> Comments { get; set; }  = new List<Comment>();
     }
 }
