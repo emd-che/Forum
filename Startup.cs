@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
+using System;
 
 namespace Forum
 {
@@ -29,9 +31,12 @@ namespace Forum
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddDbContext<ForumContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ITopicRepository, SqlTopicRepository>();
             services.AddScoped<ICommentRepository, SqlCommentRepository>();
             services.AddScoped<IUserRepository, SqlUserRepository>();
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
