@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Forum.Model;
@@ -12,6 +13,25 @@ namespace Forum.Data
         {
             _context = context;
         }
+
+        public void CreateComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+            _context.Comments.Add(comment);
+        }
+
+        public void DeleteComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+            _context.Comments.Remove(comment);
+        }
+
         public IEnumerable<Comment> GetAllComments()
         {
             return _context.Comments.ToList();
@@ -19,7 +39,14 @@ namespace Forum.Data
 
         public Comment GetCommentById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Comments.FirstOrDefault(p => p.Id == id);
         }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateComment(Comment comment){}
     }
 }

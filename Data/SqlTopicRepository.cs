@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Forum.Model;
@@ -16,6 +17,24 @@ namespace Forum.Data
 
         public ForumContext Context { get; }
 
+        public void CreateTopic(Topic topic)
+        {
+            if (topic == null)
+            {
+                throw new ArgumentNullException(nameof(topic));
+            }
+            _context.Topics.Add(topic);
+        }
+
+        public void DeleteTopic(Topic topic)
+        {
+            if (topic == null)
+            {
+                throw new ArgumentNullException(nameof(topic));
+            }
+            _context.Topics.Remove(topic);
+        }
+
         public IEnumerable<Topic> GetAllTopics()
         {
             return _context.Topics
@@ -30,9 +49,16 @@ namespace Forum.Data
 
         public Topic GetTopicById(int id)
         {
-            throw new System.NotImplementedException();
-
-            //return _context.Topics.FirstOrDefault(p =>  p.Id == id);
+            return _context.Topics.FirstOrDefault(p => p.Id == id);
         }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateTopic(Topic topic) {}
+        
+
     }
 }
