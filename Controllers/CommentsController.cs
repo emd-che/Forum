@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using AutoMapper;
 using Forum.Data;
+using Forum.Dtos;
 using Forum.Model;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forum.Controllers
@@ -10,22 +13,86 @@ namespace Forum.Controllers
     public class CommentsController: ControllerBase
     {
         private readonly ICommentRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ICommentRepository repository)
+        public CommentsController(ICommentRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult <IEnumerable<Comment>> GetAllComments()
+        public ActionResult <IEnumerable<CommentReadDto>> GetAllComments()
         {
-            return Ok(_repository.GetAllComments());
+            var comments = _repository.GetAllComments();
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetCommentById")]
         public ActionResult <Comment> GetCommentById(int id)
         {
-            return Ok(_repository.GetCommentById(id));
+            var comment = _repository.GetCommentById(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<CommentReadDto>(comment));
+        }
+
+        [HttpPost]
+        public ActionResult <CommentReadDto> CreateComment(CommentCreateDto commentCreateDto)
+        {
+            var commentModel = _mapper.Map<Comment>(commentCreateDto);
+            _repository.CreateComment(commentModel);
+            _repository.SaveChanges();
+            var commentReadDto =_mapper.Map<CommentReadDto>(commentModel);
+            return CreatedAtRoute(nameof(GetCommentById), new {Id = commentReadDto.Id}, commentReadDto);
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult UpdateComment(int id, CommentCreateDto commentUpdateDto)
+        {
+            var commentModelFromRepo = _repository.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }     
+            _mapper.Map(commentUpdateDto, commentModelFromRepo);
+            _repository.UpdateComment(commentModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult PartialUpdateComment(int id, JsonPatchDocument<CommentCreateDto> patchDoc)
+        {
+            var commentModelFromRepo = _repository.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            var commentToPatch = _mapper.Map<CommentCreateDto>(commentModelFromRepo);
+            patchDoc.ApplyTo(commentToPatch, (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
+            if (!TryValidateModel(commentToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+            _repository.UpdateComment(commentModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteComment(int id)
+        {
+            var commentModelFromRepo = _repository.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteComment(commentModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
         }
     }
 }
