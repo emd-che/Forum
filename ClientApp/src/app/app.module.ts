@@ -7,22 +7,20 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ForumListComponent } from './forum-list/forum-list.component';
 import { ForumTopicComponent } from './forum-topic/forum-topic.component';
 import { ForumTopicDetailComponent } from './forum-topic-detail/forum-topic-detail.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     ForumListComponent,
     ForumTopicComponent,
-    ForumTopicDetailComponent
+    ForumTopicDetailComponent, 
+    CommentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,8 +28,6 @@ import { ForumTopicDetailComponent } from './forum-topic-detail/forum-topic-deta
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ForumListComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'topic/:id', component: ForumTopicDetailComponent},
     ])
   ],
