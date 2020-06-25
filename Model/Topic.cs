@@ -24,7 +24,9 @@ namespace Forum.Model
         //Todo: calculate the comments Count and the last activity later
 
 
-        //Todo: make it required 
+        
+        [Required]
+        public User User{get; set;}
         public List<Comment> Comments { get; set; }  = new List<Comment>();
     }
 }

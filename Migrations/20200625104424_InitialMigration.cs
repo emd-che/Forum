@@ -30,7 +30,7 @@ namespace Forum.Migrations
                     Title = table.Column<string>(maxLength: 250, nullable: false),
                     Body = table.Column<string>(maxLength: 1500, nullable: false),
                     ViewsCount = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace Forum.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

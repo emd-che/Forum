@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Forum.Migrations
 {
-    [DbContext(typeof(ForumContext))]
-    [Migration("20200620114120_InitialMigration")]
+    [DbContext(typeof(DataContext))]
+    [Migration("20200625104424_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,7 @@ namespace Forum.Migrations
                         .HasColumnType("character varying(250)")
                         .HasMaxLength(250);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ViewsCount")
@@ -113,9 +113,11 @@ namespace Forum.Migrations
 
             modelBuilder.Entity("Forum.Model.Topic", b =>
                 {
-                    b.HasOne("Forum.Model.User", null)
+                    b.HasOne("Forum.Model.User", "User")
                         .WithMany("Topics")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

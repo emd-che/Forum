@@ -8,14 +8,14 @@ namespace Forum.Data
 {
     public class SqlTopicRepository : ITopicRepository
     {
-        private readonly ForumContext _context;
+        private readonly DataContext _context;
 
-        public SqlTopicRepository(ForumContext context)
+        public SqlTopicRepository(DataContext context)
         {
             _context = context;
         }
 
-        public ForumContext Context { get; }
+        
 
         public void CreateTopic(Topic topic)
         {

@@ -7,9 +7,9 @@ namespace Forum.Data
 {
     public class SqlCommentRepository : ICommentRepository
     {
-        private readonly ForumContext _context;
+        private readonly DataContext _context;
 
-        public SqlCommentRepository(ForumContext context)
+        public SqlCommentRepository(DataContext context)
         {
             _context = context;
         }

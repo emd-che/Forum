@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Data 
 {
-    public class ForumContext: DbContext 
+    public class DataContext: DbContext 
     {
-        public ForumContext(DbContextOptions<ForumContext> opt): base(opt){}
+        public DataContext(DbContextOptions<DataContext> opt): base(opt){}
 
         public DbSet<Topic> Topics {get; set;}
         public DbSet<Comment> Comments { get; set; }

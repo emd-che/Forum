@@ -7,9 +7,9 @@ namespace Forum.Data
 {
     public class SqlUserRepository : IUserRepository
     {
-        private readonly ForumContext _context;
+        private readonly DataContext _context;
 
-        public SqlUserRepository(ForumContext context)
+        public SqlUserRepository(DataContext context)
         {
             _context = context;
         }

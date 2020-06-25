@@ -30,17 +30,19 @@ namespace Forum
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<ForumContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ITopicRepository, SqlTopicRepository>();
             services.AddScoped<ICommentRepository, SqlCommentRepository>();
             services.AddScoped<IUserRepository, SqlUserRepository>();
+
         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context)
         {
             if (env.IsDevelopment())
             {
@@ -81,6 +83,8 @@ namespace Forum
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+            SeedData.SeedDatabase(context);
+
         }
     }
 }
