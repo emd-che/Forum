@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Forum.Model;
+
 namespace Forum.Dtos
 {
     public class TopicReadDto
@@ -7,5 +9,8 @@ namespace Forum.Dtos
         public string Title {get; set;}
         public string Body {get; set;}
         public int ViewsCount {get; set;}
+        public User user{get; set;}
+        public List<Comment> Comments { get; set; }  = new List<Comment>();
+
     }
 }

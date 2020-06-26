@@ -49,7 +49,43 @@ namespace Forum.Data
 
         public Topic GetTopicById(int id)
         {
-            return _context.Topics.FirstOrDefault(p => p.Id == id);
+            Topic result = _context.Topics
+            .Include(t => t.User)
+            .Include(t => t.Comments)
+            .ThenInclude(c => c.User)
+            .First(t => t.Id == id);
+
+
+            //breaking Json circular references
+            //TODO: make it cleaner
+            if (result != null)
+            {
+                if (result.User != null)
+                {
+                    result.User.Topics = null;
+                }
+                if (result.Comments != null)
+                {
+                    foreach (Comment cmt in result.Comments)
+                    {
+                        cmt.Topic = null;
+                        
+                        if (cmt.User != null)
+                        {
+                            if(cmt.User.Comments != null)
+                            {
+                                cmt.User.Comments = null;
+                            }
+                            if (cmt.User.Topics != null)
+                            {
+                                cmt.User.Topics = null;
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
+            
         }
 
         public bool SaveChanges()

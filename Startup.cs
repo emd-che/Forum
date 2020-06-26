@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using System;
 
+
 namespace Forum
 {
     public class Startup
@@ -32,6 +33,10 @@ namespace Forum
             });
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             
+        services.AddControllers()
+            .AddJsonOptions(options => {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ITopicRepository, SqlTopicRepository>();
