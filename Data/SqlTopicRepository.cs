@@ -35,11 +35,40 @@ namespace Forum.Data
             _context.Topics.Remove(topic);
         }
 
-        public IEnumerable<Topic> GetAllTopics()
+        public IEnumerable<Topic> GetAllTopics(bool related)
         {
-            return _context.Topics
-            .Include(Topic => Topic.Comments)
-            .ToList();
+            IQueryable<Topic> query = _context.Topics;
+            if (related)
+            {
+                query = query.Include(t => t.User)
+                    .Include(t => t.Comments);
+                List<Topic> topics = query.ToList();
+                topics.ForEach(t => {
+                    if (t.User.Topics != null)
+                    {
+                        t.User.Topics = null;
+                    }
+                    if (t.Comments != null)
+                    {
+                        t.Comments.ForEach(cmt => {
+                            cmt.Topic = null;
+                            cmt.User = null;
+                        });
+                    }
+                });
+                return topics;
+            } 
+            else 
+            {
+                return query;
+            }
+            
+            
+            
+            
+            // return _context.Topics
+            // .Include(Topic => Topic.Comments)
+            // .ToList();
 
             //This feels more optimized because it return the comments count rather than all the comment model but still not sure.  
             //I think I will try to add it and test it later 
