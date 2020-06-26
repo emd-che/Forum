@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators'
 import { TopicService } from '../topic.service';
-import { Topic } from '../Topic';
+import { Topic } from '../model/topic.model';
+
 
 //import  "rxjs/operator/switchMap";
 @Component({

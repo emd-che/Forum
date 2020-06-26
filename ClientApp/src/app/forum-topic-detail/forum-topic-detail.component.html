@@ -2,4 +2,15 @@
 
 <p>{{topic.body}}</p>
 
+<hr>
+<hr>
+<div class="comments" *ngFor="let comment of topic.comments">  
+    <div class="container">
+        <hr>
+        <app-comment [comment]="comment"></app-comment>
+        <hr> 
+    </div>
+   
+</div>
+
     

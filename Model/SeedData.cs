@@ -37,8 +37,8 @@ namespace Forum
                         } 
                     },
                     new Topic {
-                        Title = "What a great comunity",
-                        Body = "I want to share what I like about this comunity",
+                        Title = "What a great community",
+                        Body = "I want to share what I like about this community",
                         ViewsCount = 20, User = user2,
                         Comments = new List<Comment> {
                             new Comment {CommentBody = "Yes you are right", User=user1},

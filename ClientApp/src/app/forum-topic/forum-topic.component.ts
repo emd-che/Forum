@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Topic } from '../Topic';
+import { Topic } from '../model/topic.model';
+
 
 @Component({
   selector: 'app-forum-topic',
