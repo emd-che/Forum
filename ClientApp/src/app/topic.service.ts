@@ -13,16 +13,22 @@ export class TopicService {
   constructor(private http: HttpClient ) { }
 
 
-  getAllTopics(): Observable<Topic[]> {
-      const fullUrl: string = getBaseUrl() + "api/topics";
-      console.log(fullUrl);
-      return this.http.get<Topic[]>(fullUrl);
+  getAllTopics(search = "", related = false): Observable<Topic[]> {
+      let topicsUrl:string = getBaseUrl() + "api/topics" ;
+        topicsUrl += "?related=" + related;
+
+      if (search){
+        topicsUrl += "&search=" + search;
+      } 
+      
+      console.log(topicsUrl);
+      return this.http.get<Topic[]>(topicsUrl);
   }
 
   getTopicById(id): Observable<Topic> {
-    const fullUrl: string = getBaseUrl() + "api/topics/" + id;
-    console.log(fullUrl);
-    return this.http.get<Topic>(fullUrl);
+    const topicUrl: string = getBaseUrl() + "api/topics/" + id;
+    console.log(topicUrl);
+    return this.http.get<Topic>(topicUrl);
   }
   // getTopics(): Observable<Topic[]>{
   //   return of( [

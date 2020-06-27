@@ -22,9 +22,9 @@ namespace Forum.Controllers
         }
         
         [HttpGet]
-        public ActionResult <IEnumerable<TopicReadDto>> GetAllTopics(bool related=false)
+        public ActionResult <IEnumerable<TopicReadDto>> GetAllTopics(string search="", bool related=false)
         {
-            var topics = _repository.GetAllTopics(related);
+            var topics = _repository.GetAllTopics(search, related);
             return Ok(_mapper.Map<IEnumerable<TopicReadDto>>(topics));
         }
 

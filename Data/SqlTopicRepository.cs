@@ -35,9 +35,17 @@ namespace Forum.Data
             _context.Topics.Remove(topic);
         }
 
-        public IEnumerable<Topic> GetAllTopics(bool related)
+        public IEnumerable<Topic> GetAllTopics(string search, bool related)
         {
             IQueryable<Topic> query = _context.Topics;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                string searchLower = search.ToLower();
+                query = query.Where(t => t.Title.ToLower().Contains(searchLower) 
+                || t.Body.ToLower().Contains(searchLower));
+            }
+
             if (related)
             {
                 query = query.Include(t => t.User)
