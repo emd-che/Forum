@@ -26,6 +26,7 @@ namespace Forum.Controllers
         {
             var topics = _repository.GetAllTopics(search, related);
             return Ok(_mapper.Map<IEnumerable<TopicReadDto>>(topics));
+            //TODO: make sure related objects are DTOs too 
         }
 
         [HttpGet("{id}", Name="GetTopicById")]
@@ -36,6 +37,7 @@ namespace Forum.Controllers
                 return Ok(_mapper.Map<TopicReadDto>(topic));
             }
             return NotFound();
+
         }
 
         [HttpPost]
@@ -45,6 +47,12 @@ namespace Forum.Controllers
             _repository.CreateTopic(topicModel);
             _repository.SaveChanges();
             var topicReadDto = _mapper.Map<TopicReadDto>(topicModel);
+            //TODO: clean that up
+            if (topicReadDto.user.Comments != null)
+            {
+                topicReadDto.user.Comments = null;
+                topicReadDto.user.Topics = null;
+            }
             return CreatedAtRoute(nameof(GetTopicById), new {Id = topicReadDto.Id}, topicReadDto);
         }
 

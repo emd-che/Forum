@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Forum.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Data
@@ -23,6 +24,11 @@ namespace Forum.Data
             {
                 throw new ArgumentNullException(nameof(topic));
             }
+            if (topic.User != null && topic.User.Id != 0)
+            {
+               _context.Attach(topic.User);
+            }
+
             _context.Topics.Add(topic);
         }
 
