@@ -1,8 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getBaseUrl } from 'src/main';
 import { Topic } from './model/topic.model';
+
+
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,21 +40,18 @@ export class TopicService {
     console.log(topicUrl);
     return this.http.get<Topic>(topicUrl);
   }
-  // getTopics(): Observable<Topic[]>{
-  //   return of( [
-  //     {
-  //       topicTitle: "test topic one",
-  //       repliesCount: 20,
-  //       viewsCount: 100,
-  //       activity: 4,
-  //     },
-  //    {
-  //       topicTitle: "test topic two",
-  //       repliesCount: 15,
-  //       viewsCount: 80,
-  //       activity: 2,
-  //     }
-  //   ]);
 
-  // }
+  createTopic(topic: Topic): Observable<any>{
+    let topicsUrl:string = getBaseUrl() + "api/topics" ;
+    let data: Topic = {
+      title : topic.title,
+      body : topic.body,
+      userId : topic.userId ? topic.userId: 0
+    };
+    return this.http.post<Topic>(topicsUrl, data, httpOptions);
+  }
+
+ 
+
+ 
 }

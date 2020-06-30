@@ -11,6 +11,7 @@ import { ForumListComponent } from './forum-list/forum-list.component';
 import { ForumTopicComponent } from './forum-topic/forum-topic.component';
 import { ForumTopicDetailComponent } from './forum-topic-detail/forum-topic-detail.component';
 import { CommentComponent } from './comment/comment.component';
+import { CreateTopicComponent } from './create-topic/create-topic.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CommentComponent } from './comment/comment.component';
     ForumListComponent,
     ForumTopicComponent,
     ForumTopicDetailComponent, 
-    CommentComponent
+    CommentComponent, 
+    CreateTopicComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { CommentComponent } from './comment/comment.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ForumListComponent, pathMatch: 'full' },
-      { path: 'topic/:id', component: ForumTopicDetailComponent},
+      { path: 'topic/create', component: CreateTopicComponent},
+      { path: 'topic/:id', component: ForumTopicDetailComponent}
     ])
   ],
   providers: [],

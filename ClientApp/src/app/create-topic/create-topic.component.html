@@ -1,0 +1,20 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" #createTopic="ngForm">
+    
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" class="form-control"  placeholder="Title" [(ngModel)]="model.title">
+        </div>
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea name="body" id="" cols="30" rows="10" [(ngModel)]="model.body"></textarea>
+        </div>
+        <div class="form-group">
+          <!-- TODO : replace this with the current logged user-->
+          <label for="userId">user id</label> 
+          <input type="text" name="userId" class="form-control" [(ngModel)]="model.userId">
+        </div>
+    
+        <button type="submit"  class="btn btn-success">Submit</button>
+      </form>
+</div>
