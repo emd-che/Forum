@@ -6,14 +6,15 @@
     Create Topic
 </a>
 
-<div class="list-header">
+<div class="list-header row">
     <!-- todo: replace later -->
-    <span class="list-header-element topic">Topic</span>
-    <span class="list-header-element">Replies</span>
-    <span class="list-header-element">Views</span>
-    <span class="list-header-element">Activity</span>
+    <span class=" col-sm-6">Topic</span>
+    <span class=" col-sm-2">Replies</span>
+    <span class=" col-sm-2">Views</span>
+    <span class=" col-sm-2">Activity</span>
 </div>
 
-<div *ngFor="let topic of topics" class="forum-list">
+<div *ngFor="let topic of topics" class="">
+    <hr>
     <app-forum-topic [topic]="topic"></app-forum-topic>
 </div>

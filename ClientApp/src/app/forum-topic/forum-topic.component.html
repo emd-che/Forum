@@ -1,6 +1,9 @@
-<div class="forums-topic">
-   <a routerLink="/topic/{{topic.id}}"><span class="topic-element topic">{{topic.title}}</span></a> 
-    <!-- <span class="topic-element">{{topic.repliesCount}}</span> -->
-    <span class="topic-element">{{topic.viewsCount}}</span>
-    <!-- <span class="topic-element">{{topic.activity}}</span>todo: replace later -->
+<div class="row mb-10">
+    <div class="col-sm-6">
+           <a routerLink="/topic/{{topic.id}}">{{topic.title}}</a> 
+    </div>
+    <span class="col-sm-2 w-100">2</span>    <!-- TODO: replace later  -->
+    <span class="col-sm-2 w-100">{{topic.viewsCount}}</span>
+    <span class="col-sm-2 w-100">8</span>
+    
 </div>
