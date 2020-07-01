@@ -12,6 +12,7 @@ import { ForumTopicComponent } from './forum-topic/forum-topic.component';
 import { ForumTopicDetailComponent } from './forum-topic-detail/forum-topic-detail.component';
 import { CommentComponent } from './comment/comment.component';
 import { CreateTopicComponent } from './create-topic/create-topic.component';
+import { CreateCommentComponent } from './create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CreateTopicComponent } from './create-topic/create-topic.component';
     ForumTopicComponent,
     ForumTopicDetailComponent, 
     CommentComponent, 
-    CreateTopicComponent
+    CreateTopicComponent,
+    CreateCommentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

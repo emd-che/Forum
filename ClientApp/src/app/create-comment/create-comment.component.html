@@ -1,0 +1,16 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" #createComment="ngForm">
+    
+        <div class="form-group row">
+          <label class="col-sm-2" for="body">Comment</label>
+          <textarea class="form-control col-sm-6" name="commentBody" placeholder="Comment Body" cols="30" rows="10" [(ngModel)]="model.body"></textarea>
+        </div>
+        <div class="form-group row">
+          <!-- TODO : replace this with the current logged user-->
+          <label class="col-sm-2" for="userId">user id</label> 
+          <input type="text" name="userId" placeholder="User Id" class="form-control col-sm-6" [(ngModel)]="model.userId">
+        </div>
+    
+        <button type="submit"  class="btn btn-success">Submit</button>
+      </form>
+</div>

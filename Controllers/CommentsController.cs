@@ -46,6 +46,21 @@ namespace Forum.Controllers
             _repository.CreateComment(commentModel);
             _repository.SaveChanges();
             var commentReadDto =_mapper.Map<CommentReadDto>(commentModel);
+            
+            if(commentReadDto.User.Topics != null)
+            {
+                commentReadDto.User.Topics = null;
+                commentReadDto.User.Comments = null;
+            }
+            if (commentReadDto.Topic.Comments != null)
+            {
+                commentReadDto.Topic.Comments = null;
+            }
+            if (commentReadDto.Topic.User != null)
+            {
+                commentReadDto.Topic.User = null;
+            }
+
             return CreatedAtRoute(nameof(GetCommentById), new {Id = commentReadDto.Id}, commentReadDto);
         }
 

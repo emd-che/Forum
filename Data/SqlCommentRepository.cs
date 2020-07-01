@@ -20,6 +20,14 @@ namespace Forum.Data
             {
                 throw new ArgumentNullException(nameof(comment));
             }
+            if (comment.User != null && comment.User.Id != 0)
+            {
+                _context.Attach(comment.User);
+            }
+             if (comment.Topic != null && comment.Topic.Id != 0)
+            {
+                _context.Attach(comment.Topic);
+            }
             _context.Comments.Add(comment);
         }
 

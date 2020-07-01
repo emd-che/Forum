@@ -19,3 +19,12 @@
     align-self: flex-start;
     flex-grow: 1;
 } */
+
+.topic {
+    color: black;
+    padding-left: 5px;
+}
+.topic:hover{
+    text-decoration: none;
+    cursor: pointer;
+}

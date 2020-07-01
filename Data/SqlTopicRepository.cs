@@ -101,6 +101,7 @@ namespace Forum.Data
 
             //breaking Json circular references
             //TODO: make it cleaner
+         
             if (result != null)
             {
                 if (result.User != null)
@@ -139,5 +140,7 @@ namespace Forum.Data
         public void UpdateTopic(Topic topic) {}
         
 
+
+       
     }
 }

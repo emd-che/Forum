@@ -12,7 +12,7 @@ namespace Forum.Profiles
             CreateMap<Topic, TopicCreateDto>();
             CreateMap<TopicCreateDto, Topic>()
             .ForMember(d => d.User, opt => opt.MapFrom(
-                src => new User {Id = src.UserID}
+                src => new User {Id = src.UserId}
             ));
         }
     } 

@@ -10,7 +10,14 @@ namespace Forum.Profiles
         {
             CreateMap<Comment, CommentReadDto>();
             CreateMap<Comment, CommentCreateDto>();
-            CreateMap<CommentCreateDto, Comment>();
+            CreateMap<CommentCreateDto, Comment>()
+             .ForMember(d => d.User, opt => opt.MapFrom(
+                src => new User {Id = src.UserId}
+            ))
+             .ForMember(d => d.Topic, opt => opt.MapFrom(
+                src => new Topic {Id = src.TopicId}
+            ))
+            ;
         }
     }
 }
