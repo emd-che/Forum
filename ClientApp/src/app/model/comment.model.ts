@@ -6,6 +6,7 @@ export class CommentM {
     constructor(
         public id?: number, 
         public commentBody?: string,
-        public userId?: number //maybe replace with the user Object later? 
+        public userId?: number, //maybe replace with the user Object later? 
+        public topicId?: number
     ) {}
 }

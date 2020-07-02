@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators'
 import { TopicService } from '../topic.service';
 import { Topic } from '../model/topic.model';
+import { CommentService } from '../comment.service';
 
 
 //import  "rxjs/operator/switchMap";
@@ -13,8 +14,10 @@ import { Topic } from '../model/topic.model';
 })
 export class ForumTopicDetailComponent implements OnInit {
   topic: Topic;
-
-  constructor(private route: ActivatedRoute, private topicService: TopicService) { }
+//maybe add comments property for live update?
+  constructor(private route: ActivatedRoute,
+    private topicService: TopicService,
+    private commentService: CommentService) { }
 
   ngOnInit() {
     this.route.params
@@ -26,5 +29,13 @@ export class ForumTopicDetailComponent implements OnInit {
     // console.log(this.route.snapshot.params['id']);  
     // console.log(this.testId);
   }
+  createComment(comment){
 
+    this.commentService.createComment(comment).subscribe(c => {
+      console.log(c);
+    }, error => {
+      console.error(error);
+    });
+  }
 }
+

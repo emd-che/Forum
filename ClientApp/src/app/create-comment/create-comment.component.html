@@ -3,13 +3,18 @@
     
         <div class="form-group row">
           <label class="col-sm-2" for="body">Comment</label>
-          <textarea class="form-control col-sm-6" name="commentBody" placeholder="Comment Body" cols="30" rows="10" [(ngModel)]="model.body"></textarea>
+          <textarea class="form-control col-sm-6" name="commentBody" placeholder="Comment Body" cols="30" rows="5" [(ngModel)]="model.commentBody"></textarea>
         </div>
         <div class="form-group row">
           <!-- TODO : replace this with the current logged user-->
-          <label class="col-sm-2" for="userId">user id</label> 
+          <label class="col-sm-2" for="userId">User Id</label> 
           <input type="text" name="userId" placeholder="User Id" class="form-control col-sm-6" [(ngModel)]="model.userId">
         </div>
+
+        <!-- <div class="form-group row">
+          <label class="col-sm-2" for="topicId">Topic Id</label> 
+          <input type="text" name="topicId" placeholder="Topic Id" class="form-control col-sm-6" [(ngModel)]="model.topicId">
+        </div> -->
     
         <button type="submit"  class="btn btn-success">Submit</button>
       </form>
