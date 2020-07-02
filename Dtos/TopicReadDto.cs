@@ -11,6 +11,6 @@ namespace Forum.Dtos
         public int ViewsCount {get; set;}
         public User user{get; set;}
         public List<Comment> Comments { get; set; }  = new List<Comment>();
-
+        public int commentsCount {get; set;}
     }
 }

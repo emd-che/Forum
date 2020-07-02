@@ -8,7 +8,8 @@ namespace Forum.Profiles
     {
         public TopicsProfile()
         {
-            CreateMap<Topic, TopicReadDto>();
+            CreateMap<Topic, TopicReadDto>()
+            .ForMember(d => d.commentsCount, opt => opt.MapFrom(src => src.Comments.Count));
             CreateMap<Topic, TopicCreateDto>();
             CreateMap<TopicCreateDto, Topic>()
             .ForMember(d => d.User, opt => opt.MapFrom(

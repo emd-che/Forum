@@ -2,9 +2,9 @@
     <div class="col-sm-6">
            <a class="topic" routerLink="/topic/{{topic.id}}">{{topic.title}}</a> 
     </div>
-    <span class="col-sm-2 w-100">2</span>    <!-- TODO: replace the value to a dynamic one later  -->
+    <span class="col-sm-2 w-100">{{topic.commentsCount}}</span>   
     <span class="col-sm-2 w-100">{{topic.viewsCount}}</span>
-    <span class="col-sm-2 w-100">8</span>
+    <span class="col-sm-2 w-100">8</span> <!-- TODO: replace the value to a dynamic one later  -->
     
 </div>
 

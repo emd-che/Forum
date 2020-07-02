@@ -23,7 +23,7 @@ export class TopicService {
   constructor(private http: HttpClient ) { }
 
 
-  getAllTopics(search = "", related = false): Observable<Topic[]> {
+  getAllTopics(search = "", related = true): Observable<Topic[]> {
       let topicsUrl:string = getBaseUrl() + "api/topics" ;
         topicsUrl += "?related=" + related;
 
