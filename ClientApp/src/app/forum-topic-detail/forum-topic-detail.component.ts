@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators'
 import { TopicService } from '../topic.service';
 import { Topic } from '../model/topic.model';
 import { CommentService } from '../comment.service';
-
+import { CommentM } from '../model/comment.model';
 
 //import  "rxjs/operator/switchMap";
 @Component({
@@ -14,6 +14,7 @@ import { CommentService } from '../comment.service';
 })
 export class ForumTopicDetailComponent implements OnInit {
   topic: Topic;
+  comments: CommentM[];
 //maybe add comments property for live update?
   constructor(private route: ActivatedRoute,
     private topicService: TopicService,
@@ -22,7 +23,10 @@ export class ForumTopicDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .pipe(switchMap((params: Params) => this.topicService.getTopicById(+params['id'])))
-      .subscribe((topic) => this.topic = topic);
+      .subscribe((topic) => {
+        this.topic = topic;
+        this.comments = topic.comments;
+      });
     // this.route.queryParams.subscribe(params =>{
     //   this.testId = params['id']; 
     // });
@@ -33,6 +37,7 @@ export class ForumTopicDetailComponent implements OnInit {
 
     this.commentService.createComment(comment).subscribe(c => {
       console.log(c);
+      this.comments.push(c);
     }, error => {
       console.error(error);
     });
