@@ -4,7 +4,7 @@ using Forum.Model;
 
 namespace Forum.Profiles 
 {
-    class TopicsProfile: Profile
+    public class TopicsProfile: Profile
     {
         public TopicsProfile()
         {

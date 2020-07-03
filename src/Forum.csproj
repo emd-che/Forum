@@ -23,6 +23,8 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="xUnit" Version="2.4.1" />
+ 
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,10 @@
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
+
+  <!-- <ItemGroup>
+    <ProjectReference Include="Forum.csproj" />
+  </ItemGroup> -->
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
