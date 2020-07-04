@@ -8,6 +8,7 @@ using Forum.Model;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 using Forum.Profiles;
+using System.Linq;
 
 namespace ForumTests
 {
@@ -68,7 +69,7 @@ namespace ForumTests
         }
 
         [Fact]
-        public void GetTopicByIdReturnRightTopicPassed()
+        public void GetTopicByIdReturnsRightTopicPassed()
         {
             var id = 2;
             var ok = _controller.GetTopicById(id).Result as OkObjectResult;
@@ -77,7 +78,7 @@ namespace ForumTests
         }
 
         [Fact]
-        public void AddInvalidTopicReturnsBadRequestPassed()
+        public void CreateInvalidTopicReturnsBadRequestPassed()
         {
             var topicWithoutTitle = new TopicCreateDto() {
                 Body = "test body",
@@ -87,10 +88,48 @@ namespace ForumTests
 
             var badResponse = _controller.CreateTopic(topicWithoutTitle);
 
-            Assert.IsType<BadRequestObjectResult>(badResponse);
+            Assert.IsType<BadRequestObjectResult>(badResponse.Result);
         }
 
-        
+        [Fact]
+        public void CreateValidTopicReturnsCreatedAtRoutePassed()
+        {
+            var validTopic = new TopicCreateDto() {
+                Title = "Test Title",
+                Body = "Test Body",
+                UserId = 1
+            };
+
+            var createdResponse = _controller.CreateTopic(validTopic);
+
+            Assert.IsType<CreatedAtRouteResult>(createdResponse.Result);
+        }
+
+        [Fact]
+        public void CreateValidTopicReturnsCreatedTopicPassed()
+        {
+              var validTopic = new TopicCreateDto() {
+                Title = "Test Title",
+                Body = "Test Body",
+                UserId = 1
+            };
+
+            var createdResponse = _controller.CreateTopic(validTopic).Result as CreatedAtRouteResult;
+            var topicCreated = createdResponse.Value as TopicReadDto;
+
+            Assert.IsType<TopicReadDto>(topicCreated);
+            Assert.Equal("Test Title", topicCreated.Title);
+
+        }
+
+        [Fact]
+        public void DeleteExisitingTopicPassed()
+        {
+            var id = 2;
+            var ok = _controller.DeleteTopic(id);
+
+            Assert.Equal(2, _repository.GetAllTopics("", false).Count());
+        }
 
 
     }

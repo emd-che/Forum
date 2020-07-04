@@ -43,10 +43,11 @@ namespace Forum.Controllers
         [HttpPost]
         public ActionResult <TopicReadDto> CreateTopic(TopicCreateDto topicCreateDto)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     return BadRequest(ModelState);
-            // }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             var topicModel = _mapper.Map<Topic>(topicCreateDto);
             _repository.CreateTopic(topicModel);
             _repository.SaveChanges();
