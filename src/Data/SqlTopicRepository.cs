@@ -5,6 +5,10 @@ using Forum.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+//TODO: Async/Await
+//TODO: Generics maybe?
+
 namespace Forum.Data
 {
     public class SqlTopicRepository : ITopicRepository

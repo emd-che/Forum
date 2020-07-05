@@ -81,9 +81,6 @@ namespace Forum.Data
             return true;   
         }
 
-        public void UpdateTopic(Topic topic)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void UpdateTopic(Topic topic){}
     }
 }

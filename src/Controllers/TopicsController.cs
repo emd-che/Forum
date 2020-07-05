@@ -62,7 +62,7 @@ namespace Forum.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateTopic(int id, TopicCreateDto topicUpdateDto)
+        public ActionResult UpdateTopic(int id, TopicUpdateDto topicUpdateDto)
         {
             var topicModelFromRepo = _repository.GetTopicById(id);
             if (topicModelFromRepo == null)

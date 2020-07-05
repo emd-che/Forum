@@ -40,41 +40,43 @@ namespace ForumTests
         [Fact]
         public void TestGetAllTopicsReturnsOk()
         {
-            var ok = _controller.GetAllTopics();
+            var okResult = _controller.GetAllTopics();
 
-            Assert.IsType<OkObjectResult>(ok.Result);
+            Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
         [Fact]
         public void TestGetAllTopicsReturnsAlltopics()
         {
-            var ok = _controller.GetAllTopics().Result as OkObjectResult;
+            var okResult = _controller.GetAllTopics().Result as OkObjectResult;
 
-            var topics = Assert.IsType<List<TopicReadDto>>(ok.Value);
+            var topics = Assert.IsType<List<TopicReadDto>>(okResult.Value);
             Assert.Equal(3, topics.Count); 
         }
 
         [Fact]
         public void GetTopicByIdNotFoundPassed()
         {
-            var notFound = _controller.GetTopicById(8);
-            Assert.IsType<NotFoundResult>(notFound.Result);
+            var id = 800;
+            var notFoundResult = _controller.GetTopicById(id);
+            Assert.IsType<NotFoundResult>(notFoundResult.Result);
         }
 
         [Fact]
         public void GetTopicByIdReturnsOkPassed()
         {
-            var ok = _controller.GetTopicById(2);
-            Assert.IsType<OkObjectResult>(ok.Result);
+            var id = 2;
+            var okResult = _controller.GetTopicById(id);
+            Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
         [Fact]
         public void GetTopicByIdReturnsRightTopicPassed()
         {
             var id = 2;
-            var ok = _controller.GetTopicById(id).Result as OkObjectResult;
-            Assert.IsType<TopicReadDto>(ok.Value);
-            Assert.Equal(id, (ok.Value as TopicReadDto).Id);
+            var okResult = _controller.GetTopicById(id).Result as OkObjectResult;
+            Assert.IsType<TopicReadDto>(okResult.Value);
+            Assert.Equal(id, (okResult.Value as TopicReadDto).Id);
         }
 
         [Fact]
@@ -126,9 +128,48 @@ namespace ForumTests
         public void DeleteExisitingTopicPassed()
         {
             var id = 2;
-            var ok = _controller.DeleteTopic(id);
+            var okResult = _controller.DeleteTopic(id);
 
             Assert.Equal(2, _repository.GetAllTopics("", false).Count());
+        }
+
+        [Fact]
+        public void UpdateExisitingTopicReturnsNoContentPassed()
+        {
+            var id = 2;
+            var topicUpdate = new TopicUpdateDto() {
+                Title = "Test Title",
+                Body = "Test Body"
+            };
+            var noContentResult = _controller.UpdateTopic(id, topicUpdate);
+            Assert.IsType<NoContentResult>(noContentResult);
+        }
+
+
+        [Fact]
+        public void UpdateExisitingTopicChangesTopicPassed()
+        {
+            var id = 1;
+            var topicUpdate = new TopicUpdateDto(){
+                Title = "Test Title",
+                Body = "Test Body"
+            };
+            var noContentResult = _controller.UpdateTopic(id, topicUpdate);
+            Assert.Equal(true, _repository.GetTopicById(id).Title == topicUpdate.Title);
+            Assert.Equal(true, _repository.GetTopicById(id).Body == topicUpdate.Body);
+        }
+
+        [Fact]
+        public void UpdateExisitingTopicReturnsNotFoundPassed()
+        {
+            var id = 800; 
+            var topicUpdate = new TopicUpdateDto(){
+                Title = "Test Title",
+                Body = "Test Body"
+            };
+
+            var notFoundResult = _controller.UpdateTopic(id, topicUpdate);
+            Assert.IsType<NotFoundResult>(notFoundResult);
         }
 
 
