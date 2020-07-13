@@ -87,6 +87,11 @@ namespace Forum.Migrations
                         .HasColumnType("character varying(80)")
                         .HasMaxLength(80);
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("character varying(60)")
+                        .HasMaxLength(60);
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("character varying(60)")

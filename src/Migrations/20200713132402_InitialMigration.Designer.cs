@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forum.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200626105056_InitialMigration")]
+    [Migration("20200713132402_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,11 @@ namespace Forum.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(80)")
                         .HasMaxLength(80);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("character varying(60)")
+                        .HasMaxLength(60);
 
                     b.Property<string>("Username")
                         .IsRequired()

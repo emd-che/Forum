@@ -12,6 +12,10 @@ namespace Forum.Model
         public string Username { get; set; }
 
         [Required]
+        [MaxLength(60)]
+        public string Password {get; set; }
+
+        [Required]
         [MaxLength(80)]
         public string Email { get; set; }
 
