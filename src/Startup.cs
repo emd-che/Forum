@@ -9,11 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using System;
-using Forum.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Forum.Services;
 using Microsoft.AspNetCore.Identity;
 using Forum.Model;
 
@@ -48,36 +46,7 @@ namespace Forum
             services.AddScoped<ITopicRepository, SqlTopicRepository>();
             services.AddScoped<ICommentRepository, SqlCommentRepository>();
             services.AddScoped<IUserRepository, SqlUserRepository>();
-            services.AddScoped<IIdentityService, IdentityService>();
-            //Jwt Auth
             
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<DataContext>()
-                .AddDefaultTokenProviders();
-
-
-
-            var jwtSettings = new JwtSettings();
-            Configuration.Bind(nameof(jwtSettings), jwtSettings);
-            services.AddSingleton(jwtSettings);
-
-            services.AddAuthentication(x => {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer( x => {
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        RequireExpirationTime = false, 
-                        ValidateLifetime = true
-                    };
-                });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,7 +73,7 @@ namespace Forum
                 app.UseSpaStaticFiles();
             }
 
-            app.UseAuthentication();
+        
 
             app.UseRouting();
 
