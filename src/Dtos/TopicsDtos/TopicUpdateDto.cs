@@ -1,4 +1,4 @@
-namespace Forum.Model
+namespace Forum.Dtos
 {
     public class TopicUpdateDto
     {

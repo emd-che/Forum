@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Forum.Data;
 using Forum.Dtos;
-using Forum.Model;
+using Forum.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 

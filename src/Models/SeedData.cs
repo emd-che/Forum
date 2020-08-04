@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Forum.Data;
-using Forum.Model;
 using Microsoft.EntityFrameworkCore;
-namespace Forum
+namespace Forum.Models
 {
     public class SeedData
     {

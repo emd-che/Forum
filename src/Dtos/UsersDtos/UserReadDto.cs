@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace Forum.Model
+namespace Forum.Dtos
 {
     public class UserReadDto
     {

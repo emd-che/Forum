@@ -1,7 +1,6 @@
-using Forum.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Forum.Data 
+namespace Forum.Models 
 {
     public class DataContext: DbContext 
     {

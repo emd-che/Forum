@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Forum.Model
+namespace Forum.Models
 {
     public class Comment 
     {

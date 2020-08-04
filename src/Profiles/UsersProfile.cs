@@ -1,6 +1,6 @@
 using AutoMapper;
 using Forum.Dtos;
-using Forum.Model;
+using Forum.Models;
 
 namespace Forum.Profiles 
 {

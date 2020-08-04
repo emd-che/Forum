@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using Forum.Model;
+using Forum.Models;
 
 namespace Forum
 {
@@ -46,6 +46,28 @@ namespace Forum
             services.AddScoped<ITopicRepository, SqlTopicRepository>();
             services.AddScoped<ICommentRepository, SqlCommentRepository>();
             services.AddScoped<IUserRepository, SqlUserRepository>();
+
+            //Auth
+           
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters { 
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
+                services.AddAuthorization(config => {
+                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                    config.AddPolicy(Policies.User, Policies.UserPolicy());
+                });
             
         }
 
@@ -76,6 +98,8 @@ namespace Forum
         
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -84,7 +108,7 @@ namespace Forum
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-
+           
 
 
             app.UseSpa(spa =>

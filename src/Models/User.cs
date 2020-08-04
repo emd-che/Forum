@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Forum.Model
+namespace Forum.Models
 {
     public class User
     {

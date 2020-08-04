@@ -1,4 +1,4 @@
-using Forum.Model;
+using Forum.Models;
 
 namespace Forum.Dtos
 {

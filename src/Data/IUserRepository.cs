@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Forum.Model;
+using Forum.Models;
 
 namespace Forum.Data
 {

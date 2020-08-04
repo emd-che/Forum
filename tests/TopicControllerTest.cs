@@ -4,7 +4,7 @@ using AutoMapper;
 using Forum.Controllers;
 using Forum.Data;
 using Forum.Dtos;
-using Forum.Model;
+using Forum.Models;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 using Forum.Profiles;
