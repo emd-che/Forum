@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forum.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200713132402_InitialMigration")]
+    [Migration("20200806101747_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Forum.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Forum.Model.Comment", b =>
+            modelBuilder.Entity("Forum.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Forum.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Forum.Model.Topic", b =>
+            modelBuilder.Entity("Forum.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Forum.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("Forum.Model.User", b =>
+            modelBuilder.Entity("Forum.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,6 +94,9 @@ namespace Forum.Migrations
                         .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
+                    b.Property<string>("UserRole")
+                        .HasColumnType("text");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("character varying(60)")
@@ -104,24 +107,24 @@ namespace Forum.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Forum.Model.Comment", b =>
+            modelBuilder.Entity("Forum.Models.Comment", b =>
                 {
-                    b.HasOne("Forum.Model.Topic", "Topic")
+                    b.HasOne("Forum.Models.Topic", "Topic")
                         .WithMany("Comments")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forum.Model.User", "User")
+                    b.HasOne("Forum.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forum.Model.Topic", b =>
+            modelBuilder.Entity("Forum.Models.Topic", b =>
                 {
-                    b.HasOne("Forum.Model.User", "User")
+                    b.HasOne("Forum.Models.User", "User")
                         .WithMany("Topics")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

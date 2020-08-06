@@ -15,7 +15,8 @@ namespace Forum.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(maxLength: 60, nullable: false),
                     Password = table.Column<string>(maxLength: 60, nullable: false),
-                    Email = table.Column<string>(maxLength: 80, nullable: false)
+                    Email = table.Column<string>(maxLength: 80, nullable: false),
+                    UserRole = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -3,6 +3,7 @@ using AutoMapper;
 using Forum.Data;
 using Forum.Dtos;
 using Forum.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +23,21 @@ namespace Forum.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Policies.User)]
         public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
         {
             var users = _repository.GetAllUsers();
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
+        }
+
+
+        [HttpGet]
+        [Route("TestAdmin")]
+        [Authorize(Policy = Policies.Admin)]
+        public ActionResult <IEnumerable<UserReadDto>> TestAdminAuth()
+        {
+            //var users = _repository.GetAllUsers();
+            return Ok("admin stuff!");
         }
 
         [HttpGet("{id}", Name="GetuserById")]

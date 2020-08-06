@@ -19,6 +19,8 @@ namespace Forum.Models
         [MaxLength(80)]
         public string Email { get; set; }
 
+        public string UserRole {get; set;}
+
         //Todo: make it required 
         public List<Topic> Topics { get; set; } = new List<Topic>();
         public List<Comment> Comments {get; set; } = new List<Comment>();
