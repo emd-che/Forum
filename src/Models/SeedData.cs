@@ -12,9 +12,9 @@ namespace Forum.Models
             context.Database.Migrate();
             if (context.Topics.Count() == 0)
             {
-                var user1 = new User {Username = "John112", Email = "jo2532@test.test", Password="testpass1"};
-                var user2 = new User {Username = "Steve242", Email = "S4634@test.test", Password="testpass2"};
-                var user3 = new User {Username = "Dan151", Email = "Dan4444453@test.test", Password="testpass2"};
+                var user1 = new User {Username = "John112", Email = "jo2532@test.test", Password="testpass1", UserRole = "User"};
+                var user2 = new User {Username = "Steve242", Email = "S4634@test.test", Password="testpass2", UserRole = "User"};
+                var user3 = new User {Username = "Dan151", Email = "Dan4444453@test.test", Password="testpass2", UserRole = "Admin"};
                 
                 context.Topics.AddRange(
                     new Topic {
