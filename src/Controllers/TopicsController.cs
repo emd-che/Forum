@@ -12,7 +12,6 @@ namespace Forum.Controllers
     
     
     [ApiController]
-    [Authorize]
     [Route("api/topics")]
     public class TopicsController: ControllerBase
     {
@@ -45,6 +44,7 @@ namespace Forum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = Policies.User)]
         public ActionResult <TopicReadDto> CreateTopic(TopicCreateDto topicCreateDto)
         {
             if (!ModelState.IsValid)
@@ -66,6 +66,7 @@ namespace Forum.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = Policies.User)] //TODO: make sure the User is the owner of the topic to allow editing it
         public ActionResult UpdateTopic(int id, TopicUpdateDto topicUpdateDto)
         {
             var topicModelFromRepo = _repository.GetTopicById(id);
@@ -80,6 +81,8 @@ namespace Forum.Controllers
         }
 
         [HttpPatch("{id}")]
+              //TODO: make sure the User is the owner of the topic to allow editing it
+        [Authorize(Policy = Policies.User)]
         public ActionResult PartialUpdateTopic(int id, JsonPatchDocument<TopicCreateDto> patchDoc)
         {
             var topicModelFromRepo = _repository.GetTopicById(id);
@@ -101,6 +104,9 @@ namespace Forum.Controllers
         }
 
         [HttpDelete("{id}")]
+              //TODO: make sure the User is the owner of the topic to allow editing it
+
+         [Authorize(Policy = Policies.User)]
         public ActionResult DeleteTopic(int id)
         {
             var topicModelFromRepo = _repository.GetTopicById(id);

@@ -23,7 +23,7 @@ namespace Forum.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = Policies.User)]
+        [Authorize(Policy = Policies.Admin)]
         public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
         {
             var users = _repository.GetAllUsers();
@@ -31,14 +31,14 @@ namespace Forum.Controllers
         }
 
 
-        [HttpGet]
-        [Route("TestAdmin")]
-        [Authorize(Policy = Policies.Admin)]
-        public ActionResult <IEnumerable<UserReadDto>> TestAdminAuth()
-        {
-            //var users = _repository.GetAllUsers();
-            return Ok("admin stuff!");
-        }
+        // [HttpGet]
+        // [Route("TestAdmin")]
+        // [Authorize(Policy = Policies.Admin)]
+        // public ActionResult <IEnumerable<UserReadDto>> TestAdminAuth()
+        // {
+        //     //var users = _repository.GetAllUsers();
+        //     return Ok("admin stuff!");
+        // }
 
         [HttpGet("{id}", Name="GetuserById")]
         public ActionResult <User> GetUserById(int id)
@@ -52,6 +52,7 @@ namespace Forum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = Policies.Admin)]
         public ActionResult <UserReadDto> CreateUser(UserCreateDto userCreateDto)
         {
             var userModel =  _mapper.Map<User>(userCreateDto);
@@ -62,6 +63,7 @@ namespace Forum.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = Policies.Admin)]
         public ActionResult UpdateUser(int id, UserCreateDto userUpdateDto)
         {
             var userModelFromRepo = _repository.GetUserById(id);
@@ -76,6 +78,7 @@ namespace Forum.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Policy = Policies.Admin)]
         public ActionResult PartialUpdateUser(int id, JsonPatchDocument<UserCreateDto> patchDoc)
         {
             var userModelFromRepo = _repository.GetUserById(id);
@@ -96,6 +99,7 @@ namespace Forum.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = Policies.Admin)]
         public ActionResult DeleteUser(int id)
         {
             var userModelFromRepo = _repository.GetUserById(id);

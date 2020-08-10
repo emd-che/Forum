@@ -19,15 +19,7 @@ namespace Forum.Controllers {
     {
         private readonly IConfiguration _config;
         private readonly IUserRepository _repository;
-        // private List<User> appUsers = new List<User> {
-        //     new User {
-        //         Username = "Jack014", Email = "jack0014@test.test", Password="testpass1", UserRole = "Admin"
-        //     },
-        //      new User {
-        //         Username = "Craig", Email = "cc55@test.test", Password="testpass1", UserRole = "User"
-        //     }
-        // };
-
+    
         public LoginController(IConfiguration config, IUserRepository repository)
         {
             _config = config;
@@ -73,10 +65,6 @@ namespace Forum.Controllers {
             IActionResult response = Unauthorized();
             User user = AuthenticateUser(login);
             if (user != null) {
-                Console.WriteLine(user.Username);
-                Console.WriteLine(user.Email);
-                Console.WriteLine(user.UserRole);
-                System.Threading.Thread.Sleep(2000);
                 var tokenString = GenerateJWTToken(user);
                 response =  Ok(new {
                     token = tokenString,

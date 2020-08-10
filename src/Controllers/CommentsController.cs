@@ -3,6 +3,7 @@ using AutoMapper;
 using Forum.Data;
 using Forum.Dtos;
 using Forum.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,7 @@ namespace Forum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = Policies.User)]
         public ActionResult <CommentReadDto> CreateComment(CommentCreateDto commentCreateDto)
         {
             var commentModel = _mapper.Map<Comment>(commentCreateDto);
@@ -65,6 +67,8 @@ namespace Forum.Controllers
         }
 
         [HttpPatch("{id}")]
+        //TODO: make sure the User is the owner of the comment to allow editing it
+        [Authorize(Policy = Policies.User)]
         public ActionResult UpdateComment(int id, CommentCreateDto commentUpdateDto)
         {
             var commentModelFromRepo = _repository.GetCommentById(id);
@@ -79,6 +83,8 @@ namespace Forum.Controllers
         }
 
         [HttpPatch("{id}")]
+        //TODO: make sure the User is the owner of the comment to allow editing it
+        [Authorize(Policy = Policies.User)]
         public ActionResult PartialUpdateComment(int id, JsonPatchDocument<CommentCreateDto> patchDoc)
         {
             var commentModelFromRepo = _repository.GetCommentById(id);
@@ -98,6 +104,8 @@ namespace Forum.Controllers
         }
 
         [HttpDelete("{id}")]
+        //TODO: make sure the User is the owner of the comment to allow editing it
+        [Authorize(Policy = Policies.User)]
         public ActionResult DeleteComment(int id)
         {
             var commentModelFromRepo = _repository.GetCommentById(id);
